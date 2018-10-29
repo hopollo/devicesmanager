@@ -1,22 +1,30 @@
-# Devices Manager
+Devices Manager
+================
+Gestionnaire de fichiers d'une série d'outils amovibles.
 
-## Mission 
+## Fonctionnalités :
+ - **Ajouts** : ajouter les fichiers/dossiers au lot d'appareils.
+ - **Suppression** : supprimez les fichiers/dossiers au lot d'appareils.
+ - **Script** : pré-définissez tous les mouvements de fichiers/dossiers à appliquer au lot d'appareils.
+ 
+## Téléchargements : 
+[Exécutables pour Windows disponibles dans la section Releases](https://github.com/hopollo/devicesmanager/releases).
+
+## Histoire :
 Devices Manager a été creer pour répondre à la demande de professeurs et documentalistes utilisant un grand nombre des liseuses (Cybooks).
 La problématique était que manuellement ils faisaient les suppressions/ajouts de certain fichiers dans toutes leurs liseuses une par une.
 Ma solution est donc d'avoir mis en place un programme permettant de faire ça automatiquement.
 
-## Comment ça marche
-- Branchez vos liseuses. (Remarque : Vos liseuses doivent imperativement porter le même nom exemple H:/Cybook, P:/Cybook, L:Cybook)
-- Lancez le programme (Remarque : Le nom du programme sera composé par la suite du nom de vos appareils, exemple Cybook Manager)
-- Choisiez une action, et attendez la fin des exécutions.
+### Pré-requis :
+Les appareils amovibles visés doivent avoir exactement le même nom, exemple : Cybook (H:), Cybook (P:), Cybook (L:)
 
-## API
-  Avec Devices Manager, il est possible de creer son propre script d'instructions afin d'y avoir un nombre illimité d'ajouts et suppréssions dans une même boucle.
+### API
+Avec Devices Manager, il est possible de créer son propre script d'instructions de mouvements de donnés à appliquer aux autres appareils du meme type.
 
-  Remarque : L'ajout/suppression de dossiers multiples est uniquement possible par écriture de script.
+Remarque : L'ajout/suppression de dossiers multiples est uniquement possible par écriture de script.
     
     References (Important : Attention aux majuscules et espaces)
-    * Mse en place d'une destination : Il s'agit de préciser la destination de toutes les liseuses.
+    * Mise en place d'une destination : Il s'agit de préciser la destination de toutes les liseuses.
       "= Destination\dans\vos\appareils"
     
     * Ajouts fichier(s) ou dossier(s) : 
@@ -25,8 +33,8 @@ Ma solution est donc d'avoir mis en place un programme permettant de faire ça a
     * Suppressions fichier(s) ou dossier(s) :
       "- Source\des\fichiers\ciblés\aSupprimer.img ou "- \Source\des\dossiers\a\supprimer\"
 
-  Remarque : La lecture de script se fait de haut en bas, ligne par ligne, vous pouvez donc combiner plusieurs instructions différentes comme :
-  
+  Exemple complet :
+  ```
     = \Destination\dans\mes\liseuses
     - fichier_1_Deja_Present.txt
     - \Destination\dans\mes\liseuses\fichier_2_Deja_Present.txt
@@ -35,3 +43,4 @@ Ma solution est donc d'avoir mis en place un programme permettant de faire ça a
     + C:\Chemin\du\dossier_1
     = \Autre\Destination\dans\mes\liseuses
     + C:\Chemin\des\fichiers\photo_1.img
+  ```
