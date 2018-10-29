@@ -4,8 +4,8 @@ Gestionnaire de fichiers d'une série d'outils amovibles.
 
 ## Fonctionnalités :
  - **Ajouts** : ajouter les fichiers/dossiers au lot d'appareils.
- - **Suppression** : supprimez les fichiers/dossiers au lot d'appareils.
- - **Script** : pré-définissez tous les mouvements de fichiers/dossiers à appliquer au lot d'appareils.
+ - **Suppressions** : supprimer les fichiers/dossiers au lot d'appareils.
+ - **Repeat ou Script** : effectuer une deuxieme passe similaire ou pré-définissez les mouvements de fichiers/dossiers à appliquer au lot d'appareils.
  
 ## Téléchargements : 
 [Exécutables pour Windows disponibles dans la section Releases](https://github.com/hopollo/devicesmanager/releases).
