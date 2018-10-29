@@ -48,3 +48,12 @@ Remarque : L'ajout/suppression de dossiers multiples est uniquement possible par
     = \Autre\Destination\dans\mes\liseuses
     + C:\Chemin\des\fichiers\photo_1.img
   ```
+ 
+## Contribution :
+Vous souhaitez soutenir le project ? Des options s'offrent à vous : 
+- ** Signalements ** aider à la chasse bugs
+- ** Partages ** partager l'outil
+- ** Pull-request ** apporter vos suggestions de code
+
+### Me soutenir :
+[Faire un don](https://streamelements.com/hopollo/tip)
