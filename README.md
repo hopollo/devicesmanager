@@ -51,9 +51,10 @@ Remarque : L'ajout/suppression de dossiers multiples est uniquement possible par
  
 ## Contribution :
 Vous souhaitez soutenir le project ? Des options s'offrent à vous : 
-- ** Signalements ** aider à la chasse bugs
-- ** Partages ** partager l'outil
-- ** Pull-request ** apporter vos suggestions de code
+- **Signalements** aider à la chasse bugs
+- **Partages** faire connaitre l'outil et développer une communauté
+- **Former** aider les autres à utiliser l'outil
+- **Pull-request** apporter vos suggestions de code
 
 ### Me soutenir :
-[Faire un don](https://streamelements.com/hopollo/tip)
+[Faire un don](https://streamelements.com/hopollo/tip) pour soutenir ce petit projet fait par un petit programmeur autodidacte à titre gracieux et m'apporter une motivation supplémentaire dans le maintient et amélioration du code. <3
