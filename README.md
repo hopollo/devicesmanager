@@ -15,8 +15,8 @@ Gestionnaire de fichiers d'une série d'outils amovibles.
 
 ## Histoire :
 Devices Manager a été créer pour répondre à la demande de professeurs et documentalistes utilisant un grand nombre des liseuses (Cybooks).
-Le transfert des fichiers était fait manuellement dans toutes leurs liseuses une par une. (30 appreils)
-Cet outils permet d'automatiser ces transfert à un nombre illimité* d'appreils. (*limite d'alphabet Windows et/ou switch usb) Plusieurs passent sont cependant possibles.
+Le transfert des fichiers était fait manuellement dans toutes leurs liseuses une par une sur 30 appreils.
+Cet outils permet d'automatiser ces transferts sur un grand lot d'appreils et en plusieurs passes si necessaires.
 
 ### Pré-requis :
 Les appareils amovibles visés doivent avoir exactement le même nom, exemple : Cybook (H:), Cybook (P:), Cybook (L:)
