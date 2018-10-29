@@ -11,7 +11,7 @@ Gestionnaire de fichiers d'une série d'outils amovibles.
 [Exécutables pour Windows disponibles dans la section Releases](https://github.com/hopollo/devicesmanager/releases).
 
 ## Bugs : 
-[Signaler un bug](https://github.com/hopollo/devicesmanager/issues/new)
+[Signaler un bug](https://github.com/hopollo/devicesmanager/issues/new) // [Consulter les bugs connus](https://github.com/hopollo/devicesmanager/issues)
 
 ## Histoire :
 Devices Manager a été creer pour répondre à la demande de professeurs et documentalistes utilisant un grand nombre des liseuses (Cybooks).
