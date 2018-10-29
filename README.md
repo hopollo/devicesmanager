@@ -24,13 +24,14 @@ Avec Devices Manager, il est possible de créer son propre script d'instructions
 Remarque : L'ajout/suppression de dossiers multiples est uniquement possible par écriture de script.
     
     References (Important : Attention aux majuscules et espaces)
-    * Mise en place d'une destination : Il s'agit de préciser la destination de toutes les liseuses.
+    
+    Mise en place d'une destination : Il s'agit de préciser la destination de toutes les liseuses.
       "= Destination\dans\vos\appareils"
     
-    * Ajouts fichier(s) ou dossier(s) : 
+    Ajouts fichier(s) ou dossier(s) : 
       "+ C:\Chemin\des\fichiers\fichier.txt" ou "+ C:\Chemin\des\dossiers\a\ajouter"
    
-    * Suppressions fichier(s) ou dossier(s) :
+    Suppressions fichier(s) ou dossier(s) :
       "- Source\des\fichiers\ciblés\aSupprimer.img ou "- \Source\des\dossiers\a\supprimer\"
 
   Exemple complet :
