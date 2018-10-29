@@ -11,12 +11,12 @@ Gestionnaire de fichiers d'une série d'outils amovibles.
 [Exécutables pour Windows disponibles dans la section Releases](https://github.com/hopollo/devicesmanager/releases).
 
 ## Bugs : 
-[Signaler un bug](https://github.com/hopollo/devicesmanager/issues/new) // [Consulter les bugs connus](https://github.com/hopollo/devicesmanager/issues)
+[Signaler un bug](https://github.com/hopollo/devicesmanager/issues/new) ou [Consulter les bugs connus](https://github.com/hopollo/devicesmanager/issues)
 
 ## Histoire :
-Devices Manager a été creer pour répondre à la demande de professeurs et documentalistes utilisant un grand nombre des liseuses (Cybooks).
-La problématique était que manuellement ils faisaient les suppressions/ajouts de certain fichiers dans toutes leurs liseuses une par une.
-Ma solution est donc d'avoir mis en place un programme permettant de faire ça automatiquement.
+Devices Manager a été créer pour répondre à la demande de professeurs et documentalistes utilisant un grand nombre des liseuses (Cybooks).
+Le transfert des fichiers était fait manuellement dans toutes leurs liseuses une par une. (30 appreils)
+Cet outils permet d'automatiser ces transfert à un nombre illimité* d'appreils. (*limite d'alphabet Windows et/ou switch usb) Plusieurs passent sont cependant possibles.
 
 ### Pré-requis :
 Les appareils amovibles visés doivent avoir exactement le même nom, exemple : Cybook (H:), Cybook (P:), Cybook (L:)
