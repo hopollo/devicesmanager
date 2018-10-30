@@ -5,6 +5,7 @@
 #include <EditConstants.au3>
 #include <File.au3>
 #include <FileConstants.au3>
+#include <GuiComboBox.au3>
 #include <GUIConstantsEx.au3>
 #include <GuiEdit.au3>
 #include <Misc.au3>
@@ -103,7 +104,9 @@ Func GetDevices()
    If Not @error Then
 	  For $i = 1 To UBound($aDrives) - 1
 		 Global $driveName = DriveGetLabel($aDrives[$i])
-		 GUICtrlSetData($devicesTargetInput, $driveName)
+		 If $driveName <> '' Then ;Prevents from "phantoms" drives partitions
+			_GUICtrlComboBox_AddString($devicesTargetInput, $driveName)
+		 EndIf
 	  Next
 
 	  If $aDrives[0] > 1 Then
@@ -113,7 +116,7 @@ Func GetDevices()
 	  EndIf
 
 	  Do
-		 $userDevicesPicked = GUICtrlRead($devicesTargetInput, $GUI_READ_EXTENDED)
+		 $userDevicesPicked = GUICtrlRead($devicesTargetInput)
 
 		 Switch GUIGetMsg()
 			Case $GUI_EVENT_CLOSE
@@ -130,12 +133,13 @@ Func GetDevices()
 
 	  Until _IsPressed("01") And StringLen($userDevicesPicked) > 3
 
+	  GUICtrlSetState($devicesTargetInput, $GUI_DISABLE)
+	  GUICtrlSetData($devicesTargetInput, $userDevicesPicked) ;Shows user selected item
+
 	  For $i = 1 To UBound($aDrives) - 1
 		 Local $drivesLabels = DriveGetLabel($aDrives[$i] & "\")
-		 If $drivesLabels = $driveName Then
+		 If $drivesLabels = $userDevicesPicked Then
 			_ArrayAdd($aCybooks, $aDrives[$i])
-		 Else
-			Return
 		 EndIf
 	  Next
 
