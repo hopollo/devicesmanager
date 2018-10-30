@@ -1,2 +1,17 @@
+30/10/2018 09:12 :
+- Ouverture du wiki via github
+- Implémentation interface utilisateur complète
+- Implémentation de sélection d'appareils dans liste
+- Implémentation de l'aide en ligne si connecté à internet
+- Implémentation d'un journal d'evenements
+- Implémentation des lignes lises dans script dans le journal
+- Suppression des boites de dialogues textes
+- Suppression des fermetures logiciel en cas de problèmes
+- Implémentation dse messages d'erreurs dans le journal
+- Modification du titre
+- Modification du nom du fichier temporaire
+- Optimisations du code
+- Correction des fautes du readme
+
 29/10/2018 08:15 :
 - Mise à jour du readme
