@@ -153,7 +153,7 @@ Func GetDevices()
 	  GUICtrlSetState($removeFolderBtn, $GUI_ENABLE)
    Else
 	  Sleep(200)
-	  info("Aucun appareil détecté, vérifiez vos branchements USB ou contactez l'administrateur." & @CRLF & @CRLF & "Cliquez sur Ignorer si vous souhaitez (re)programmer la script de répétition.")
+	  info("Aucun appareil détecté, vérifiez vos branchements USB ou contactez l'administrateur." & @CRLF & @CRLF & "Cliquez sur Ignorer si vous souhaitez (re)programmer le script de répétition.")
    EndIf
 EndFunc
 
