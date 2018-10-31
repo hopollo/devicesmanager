@@ -18,7 +18,7 @@
 ;#RequireAdmin
 
 Global $author = "@HoPolloTV"
-Global $version = "beta2"
+Global $version = "beta1.1"
 Global $appName = "Devices Manager"
 
 Global $reason = "Fermeture => Utilisateur"
@@ -31,7 +31,6 @@ Dim $aCybooks[0]
 $Main = GUICreate($title, 450, 391, @DesktopWidth/2 - 391/2, @DesktopHeight/2 - 450/2)
 Global $journal = GUICtrlCreateEdit("", 8, 136, 435, 249, BitOR($ES_AUTOVSCROLL,$ES_READONLY,$WS_VSCROLL))
 GUICtrlSetData(-1, "")
-GUICtrlSetState(-1, $GUI_DISABLE)
 GUICtrlSetCursor (-1, 2)
 $uploadFilesBtn = GUICtrlCreateButton("Fichier", 272, 40, 75, 33)
 $removeFilesBtn = GUICtrlCreateButton("Fichier", 370, 40, 75, 33)
@@ -45,11 +44,9 @@ GUICtrlSetState(-1, $GUI_DISABLE)
 $tempFileBtn = GUICtrlCreateButton("<<", 125, 88, 35, 33)
 $Label3 = GUICtrlCreateLabel("Appareils :", 8, 24, 53, 17)
 $Pic1 = GUICtrlCreatePic("", 168, 8, 92, 76)
-$status = GUICtrlCreateLabel("Aucun appareil détecté, vérifiez le nom renseigné (Majuscules comprises)", 8, 56, 200, 30)
+$status = GUICtrlCreateLabel("Aucun appareil amovible détecté", 8, 56, 200, 30)
 $helpBtn = GUICtrlCreateButton("Aide", 176, 88, 80, 33)
 GUISetState(@SW_SHOW)
-
-$devicesTarget = GUICtrlRead($devicesTargetInput)
 
 GUICtrlSetState($uploadFilesBtn, $GUI_DISABLE)
 GUICtrlSetState($uploadFolderBtn, $GUI_DISABLE)
@@ -186,7 +183,7 @@ Func CreateTempFile($tempFile)
 	  info('Génération du fichier temporaire => Succès !')
 	  Return
    Else
-	  info(' Oops : Impossible de creer le fichier temporaire !')
+	  info('Oops : Impossible de créer le fichier temporaire !')
 	  Return
    EndIf
 EndFunc
@@ -212,7 +209,7 @@ Func RepeatAction($aCybooks)
 
    Local $hFileOpen = FileOpen($tempFile, $FO_READ)
    If $hFileOpen = -1 Then
-	  info("Erreur Fatale", "Action indisponible, impossible d'acceder au fichier temporaire")
+	  info("Erreur Fatale", "Action indisponible, impossible d'accéder au fichier temporaire.")
 	  info('===================================================================')
    EndIf
 
@@ -261,13 +258,13 @@ Func UploadFiles($aCybooks)
 
    Local $fileSource = FileOpenDialog("Fichiers source", "", "Tous les fichiers (*.*)", 4)
    If @error Then
-	  info("Oops => Selection de fichiers source incorrecte")
+	  info("Oops => Sélection de fichiers source incorrecte")
 	  Return
    EndIf
 
    Local $fileDestination = FileSelectFolder("Destination fichier(s), choisissez une cible", $aCybooks[0])
    If @error Then
-	  info("Oops => Selection du dossier destination")
+	  info("Oops => Sélection du dossier destination")
 	  Return
    EndIf
 
@@ -279,9 +276,9 @@ Func UploadFiles($aCybooks)
 	  If $folderSearch = 0 Then
 		 $folderCreate = DirCreate($aCybooks[$i] & $splittedDestination)
 		 If $folderCreate = 1 Then
-			info('Creation du dossier manquant => succès (' & $aCybooks[$i] & ')')
+			info('Création du dossier manquant => Succès (' & StringUpper($aCybooks[$i]) & ')')
 		 ElseIf $folderCreate = 0 Then
-			info('Oops => Creation du dossier manquant => erreur (' & $aCybooks[$i] & ')')
+			info('Oops => Création du dossier manquant => Erreur (' & StringUpper($aCybooks[$i]) & ')')
 		 EndIf
 	  EndIf
    Next
@@ -299,7 +296,7 @@ Func UploadSingleFile($fileSource, $aCyBooks, $splittedDestination)
    For $i=0 To UBound($aCybooks) - 1
 	  Local $fileCopy = FileCopy($fileSource, $aCybooks[$i] & $splittedDestination, $FC_OVERWRITE + $FC_CREATEPATH)
 	  If $fileCopy = 1 Then
-		 info('Succes ' & $devicesTarget & ' ('& StringUpper($aCybooks[$i]) & ") : Envoi " & $aCybooks[$i] & " => Succes !")
+		 info('Succès ' & StringUpper($aCybooks[$i]) & " : Envoi => Succès !")
 	  ElseIf $fileCopy = 0 Then
 		 info('Oops : Envoi => Erreur ! (' & $aCybooks[$i] & ')')
 	  EndIf
@@ -317,9 +314,9 @@ Func UploadMultiplesFiles($fileSource, $aCyBooks, $splittedDestination)
 	  For $i=0 To UBound($aCybooks) - 1
 		 Local $fileCopy = FileCopy($newSource, $aCybooks[$i] & $splittedDestination, $FC_OVERWRITE + $FC_CREATEPATH)
 		 If $fileCopy = 1 Then
-			info('Succes : ' & $devicesTarget & ' ('& StringUpper($aCybooks[$i]) & ") : Envoi " & $items[$f] & " => Succes !")
+			info('Succes : ' & StringUpper($aCybooks[$i]) & " : Envoi " & $items[$f] & " => Succes !")
 		 ElseIf $fileCopy = 0 Then
-			info('Oops : Envoi => ERREUR ! (' & $aCybooks[$i] & ')')
+			info('Oops : Envoi => Erreur ! (' & $aCybooks[$i] & ')')
 		 EndIf
 	  Next
    Next
@@ -349,9 +346,9 @@ Func UploadFolder($aCybooks)
    For $i=0 To UBound($aCybooks) - 1
 	  Local $dirCopy = DirCopy($folderSource, $aCybooks[$i] & $folderSplitted, 1)
 	  If $dirCopy Then
-		 info('Succes : Envoi => succes ! (' & $aCybooks[$i] & ')')
+		 info('Succès : Envoi => Succès ! (' & $aCybooks[$i] & ')')
 	  Else
-		 info('Oops : Envoi => erreur ! (' & $aCybooks[$i] & ')')
+		 info('Oops : Envoi => Erreur ! (' & $aCybooks[$i] & ')')
 		 Info("Transfert de dossier impossible")
 		 Return
 	  EndIf
@@ -388,11 +385,11 @@ Func RemoveSingleFile($fileSource, $aCybooks, $splittedSource, $trimedSource)
 		If $fileDelete = 1 Then
 			info('Succes : Suppression => succes ! (' & $aCybooks[$i] & ')')
 		Else
-			info('Oops : Suppression => ERREUR ! (' & $aCybooks[$i] & ')')
+			info('Oops : Suppression => Erreur ! (' & $aCybooks[$i] & ')')
 		EndIf
    Next
 
-   info("Suppressions fichier accomplies")
+   info("Suppression fichier accomplie")
 EndFunc
 
 Func RemoveMultiplesFiles($fileSource, $aCybooks, $splittedSource)
@@ -407,9 +404,9 @@ Func RemoveMultiplesFiles($fileSource, $aCybooks, $splittedSource)
 	  For $i=0 To UBound($aCybooks) - 1
 		 Local $fileDelete = FileDelete($aCybooks[$i] & $newSource)
 		 If $fileDelete = 1 Then
-			info('Succes : ' & $devicesTarget & ' ('& StringUpper($aCybooks[$i]) & ") : Suppression " & $items[$f] & " => Succes !")
+			info('Succes : ' & StringUpper($aCybooks[$i]) & " : Suppression " & $items[$f] & " => Succes !")
 		 Else
-			info('Oops : Suppression => ERREUR ! (' & $aCybooks[$i] & ')')
+			info('Oops : Suppression => Erreur ! (' & StringUpper($aCybooks[$i]) & ')')
 		 EndIf
 	  Next
    Next
@@ -432,15 +429,15 @@ Func RemoveFolder($aCybooks)
 	  If $file = 1 Then
 		 $dirDelete = DirRemove($aCybooks[$i] & $splittedFolder, 2)
 		 If $dirDelete = 1 Then
-			info('Succes : ' & $devicesTarget & ' ('& StringUpper($aCybooks[$i]) & ") : Suppression => Succes !")
+			info('Succes : ' & StringUpper($aCybooks[$i]) " : Suppression => Succes !")
 		 Else
-			info('Oops : Suppressions => Error  ! (' & $aCybooks[$i] & ')')
+			info('Oops : Suppressions => Erreur  ! (' & $aCybooks[$i] & ')')
 		 EndIf
 	  Else
 		 info('Oops : Suppression => Dossier(s) introuvable(s) (' & $aCybooks[$i] & ')')
 	  EndIf
    Next
-   info("Suppressions dossiers terminés")
+   info("Suppressions dossiers terminées")
 EndFunc
 
 Func HelpAction()
@@ -448,7 +445,7 @@ Func HelpAction()
    If not @error Then
 	  ShellExecute("https://github.com/hopollo/devicesmanager/wiki")
    Else
-	  MsgBox(0,'Offline Documentation' & $title,"Comment ça marche ?" & @CRLF & 'Etape 1 : Branchez vos liseuses sur le hub USB.' & @CRLF & "Etape 2 : Choisissez l'action Envoi/Suppression/Répétition" & @CRLF & "Etape 3 : Pointez sur la cible dans la fenêtre qui s'ouvre" & @CRLF &'                Une sélection multiple est possible en maintenant enfoncée la                  touche CTRL et en cliquant sur plusieurs fichiers.' & @CRLF & 'N.B : vous pouvez créer un répertoire modèle dans un/une des '& $devicesTarget &' et y copier/coller vos fichiers.' & @CRLF & @CRLF & "Etape 4 : Validez vos choix pour propager automatiquement l'action aux autres " & $devicesTarget & " connectés." & @CRLF & @CRLF & "La répétition ré-exécute les mêmes actions sur plusieurs lots de " & $devicesTarget & @CRLF & "=============================================="& @CRLF & @CRLF & "Script API : (Attention aux Majuscules)" & @CRLF & "Emplacement script/fichier temporaire : " & $tempFile & @CRLF & @CRLF & "References :" & @CRLF & "= \Destination\generale => Dossier appliqué par les suivants + , - " & @CRLF & "+ C:\Chemin\dajouts.txt => Fichier à ajouter à la source" & @CRLF & "- \Chemin\de\suppression => Dossier à supprimer de la source" & @CRLF & @CRLF & "Exemple :" & @CRLF & '= \Digital Editions\Bundle\Manuals' & @CRLF & "- Cybook_Muse_ru.epub" & @CRLF & "+ C:\Users\HoPollo-Portable\Desktop\Test.txt" & @CRLF & @CRLF & "Retrouvez les mises à jours sur : github.com/hopollo/devicesmanager")
+	  MsgBox(0,'Documentation hors-ligne' & $title,"Comment ça marche ?" & @CRLF & 'Etape 1 : Branchez vos liseuses sur le hub USB.' & @CRLF & "Etape 2 : Choisissez l'action Envoi/Suppression/Répétition" & @CRLF & "Etape 3 : Pointez sur la cible dans la fenêtre qui s'ouvre" & @CRLF &'                Une sélection multiple est possible en maintenant enfoncée la                  touche CTRL et en cliquant sur plusieurs fichiers.' & @CRLF & 'N.B : vous pouvez créer un répertoire modèle dans un des appreils amovibles et y copier/coller vos fichiers.' & @CRLF & @CRLF & "Etape 4 : Validez vos choix pour propager automatiquement l'action aux autres appareils amovibles similaires connectés." & @CRLF & @CRLF & "La répétition ré-exécute les mêmes actions sur plusieurs lots d'appareils amovilbes" & @CRLF & "=============================================="& @CRLF & @CRLF & "Script API : (Attention aux Majuscules)" & @CRLF & "Emplacement script/fichier temporaire : " & $tempFile & @CRLF & @CRLF & "References :" & @CRLF & "= \Destination\generale => Dossier appliqué par les suivants + , - " & @CRLF & "+ C:\Chemin\dajouts.txt => Fichier à ajouter à la source" & @CRLF & "- \Chemin\de\suppression => Dossier à supprimer de la source" & @CRLF & @CRLF & "Exemple :" & @CRLF & '= \Digital Editions\Bundle\Manuals' & @CRLF & "- Cybook_Muse_ru.epub" & @CRLF & "+ C:\Users\HoPollo-Portable\Desktop\Test.txt" & @CRLF & @CRLF & "Retrouvez les mises à jours sur : github.com/hopollo/devicesmanager")
    Endif
 EndFunc
 
@@ -456,7 +453,7 @@ Func Quit($reason)
    FileClose($tempFile)
    Beep(660,90)
 	  Beep(440,80)
-   info(@CRLF &"Fermeture, merci d'avoir utilisé " & $appName & @CRLF & $reason)
+   info(@CRLF & "Fermeture, merci d'avoir utilisé " & $appName & @CRLF & $reason)
 	  Beep(440,100)
    Beep(660,50)
    Sleep(2000)
