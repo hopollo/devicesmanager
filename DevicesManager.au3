@@ -79,7 +79,7 @@ GetDevices()
 			RemoveFolder($aCybooks)
 
 		 Case $helpBtn
-			info('Ouverture du fichier temporaire/script, merci de patienter...')
+			info("Ouverture de l'aide, merci de patienter...")
 			HelpAction()
 
 		 Case $repeatBtn
