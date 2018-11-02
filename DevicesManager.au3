@@ -1,6 +1,7 @@
 #include <AutoItConstants.au3>
 #include <Array.au3>
 #include <ButtonConstants.au3>
+#include <Clipboard.au3>
 #include <ComboConstants.au3>
 #include <EditConstants.au3>
 #include <File.au3>
@@ -10,6 +11,7 @@
 #include <GuiEdit.au3>
 #include <Misc.au3>
 #include <MsgBoxConstants.au3>
+#include <ScreenCapture.au3>
 #include <StaticConstants.au3>
 #include <ScrollBarsConstants.au3>
 #include <WinAPIFiles.au3>
@@ -429,7 +431,7 @@ Func RemoveFolder($aCybooks)
 	  If $file = 1 Then
 		 $dirDelete = DirRemove($aCybooks[$i] & $splittedFolder, 2)
 		 If $dirDelete = 1 Then
-			info('Succes : ' & StringUpper($aCybooks[$i]) " : Suppression => Succes !")
+			info('Succes : ' & StringUpper($aCybooks[$i]) & " : Suppression => Succes !")
 		 Else
 			info('Oops : Suppressions => Erreur  ! (' & $aCybooks[$i] & ')')
 		 EndIf
@@ -443,6 +445,10 @@ EndFunc
 Func HelpAction()
    Ping("www.google.com")
    If not @error Then
+	  $hHBITMAP = _ScreenCapture_CaptureWnd("", $Main)
+	  _ClipBoard_Open(0)
+	  _ClipBoard_SetDataEx($hHBITMAP, $CF_BITMAP)
+	  _ClipBoard_Close()
 	  ShellExecute("https://github.com/hopollo/devicesmanager/wiki")
    Else
 	  MsgBox(0,'Documentation hors-ligne' & $title,"Comment ça marche ?" & @CRLF & 'Etape 1 : Branchez vos liseuses sur le hub USB.' & @CRLF & "Etape 2 : Choisissez l'action Envoi/Suppression/Répétition" & @CRLF & "Etape 3 : Pointez sur la cible dans la fenêtre qui s'ouvre" & @CRLF &'                Une sélection multiple est possible en maintenant enfoncée la                  touche CTRL et en cliquant sur plusieurs fichiers.' & @CRLF & 'N.B : vous pouvez créer un répertoire modèle dans un des appreils amovibles et y copier/coller vos fichiers.' & @CRLF & @CRLF & "Etape 4 : Validez vos choix pour propager automatiquement l'action aux autres appareils amovibles similaires connectés." & @CRLF & @CRLF & "La répétition ré-exécute les mêmes actions sur plusieurs lots d'appareils amovilbes" & @CRLF & "=============================================="& @CRLF & @CRLF & "Script API : (Attention aux Majuscules)" & @CRLF & "Emplacement script/fichier temporaire : " & $tempFile & @CRLF & @CRLF & "References :" & @CRLF & "= \Destination\generale => Dossier appliqué par les suivants + , - " & @CRLF & "+ C:\Chemin\dajouts.txt => Fichier à ajouter à la source" & @CRLF & "- \Chemin\de\suppression => Dossier à supprimer de la source" & @CRLF & @CRLF & "Exemple :" & @CRLF & '= \Digital Editions\Bundle\Manuals' & @CRLF & "- Cybook_Muse_ru.epub" & @CRLF & "+ C:\Users\HoPollo-Portable\Desktop\Test.txt" & @CRLF & @CRLF & "Retrouvez les mises à jours sur : github.com/hopollo/devicesmanager")
