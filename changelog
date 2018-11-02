@@ -1,3 +1,7 @@
+02/11/2018 18:16 :
+- Implémentation d'un screenshot de l'application uniquement en cas d'utilisation du bouton "Aide" + accès internet
+- Fix erreur de syntaxe pouvant résulter d'un éventuel crash de l'application
+
 31/10/2018 18:16 :
 - Implémentation de copie de texte depuis le journal
 - Implémentation du défilement du journal par l'utilisateur + molette fonctionnelle
