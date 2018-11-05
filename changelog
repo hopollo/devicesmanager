@@ -1,3 +1,13 @@
+05/11/2018 10:57 :
+- Implémentation de détection de mises à jours
+- Implémentation d'un fonctionnalitée de collecte d'appareils vers PC
+- Implémentation de la référence * pour la collecte dans l'Api
+- Implémentation de compteurs d'activités par tâches
+- Implémentation de séparateurs de bouttons
+- Implémentation du nom de l'activitée actuelle sur les explorers
+- Fix de lecture de script dans le journal
+- Fix problèmes de stabilités mineurs
+
 02/11/2018 18:16 :
 - Implémentation d'un screenshot de l'application uniquement en cas d'utilisation du bouton "Aide" + accès internet
 - Fix erreur de syntaxe pouvant résulter d'un éventuel crash de l'application
