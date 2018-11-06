@@ -22,7 +22,7 @@
 ;#RequireAdmin
 
 Global $author = "@HoPolloTV"
-Global $version = "beta1.2"
+Global $version = "beta1.2.1"
 Global $appName = "Devices Manager"
 
 Global $reason = "Fermeture => Utilisateur"
@@ -112,6 +112,7 @@ Global $tempFile = @TempDir & '\DevicesManagerTemp.txt'
 
 Func GetDevices()
    ReadTempFile($tempFile)
+   GUICtrlSetState($devicesTargetInput, $GUI_DISABLE)
 
    Local $aDrives = DriveGetDrive($DT_REMOVABLE)
    If Not @error Then
@@ -121,6 +122,8 @@ Func GetDevices()
 			_GUICtrlComboBox_AddString($devicesTargetInput, $driveName)
 		 EndIf
 	  Next
+
+	  GUICtrlSetState($devicesTargetInput, $GUI_ENABLE)
 
 	  If $aDrives[0] > 1 Then
 		 GUICtrlSetData($status, $aDrives[0] & " appareils trouvés")
@@ -226,7 +229,7 @@ Func RepeatAction($aCybooks)
 
    Local $hFileOpen = FileOpen($tempFile, $FO_READ)
    If $hFileOpen = -1 Then
-	  info("Erreur Fatale", "Action indisponible, impossible d'accéder au fichier temporaire.")
+	  info("Oops : Action indisponible, fichier temporaire inaccéssible.")
 	  info('===================================================================')
    EndIf
 
@@ -242,35 +245,28 @@ Func RepeatAction($aCybooks)
    Local $colls = 0
 
    For $i = 0 To UBound($aLines) - 1
-	  Local $aCurrentLine = StringTrimLeft($aLines[$i],2)
+	  Local $aCurrentLine = StringTrimLeft($aLines[$i], 2) ; remove the 'x ' sign + space
 	  For $f = 0 To UBound($aCybooks) - 1
 		 info($aLines[$i])
-		 If StringInStr($aLines[$i] , '=') Then
-			Local $destination = StringTrimLeft($aLines[$i], 2)
-			$translatedDestination = $aCybooks[$f] & $destination
-		 EndIf
 
-		 Local $translatedSource = $aCybooks[$f] & $aCurrentLine
-
-		 If StringInStr($aLines[$i], '+') Then
-			If Not StringInStr($aCurrentLine, $translatedDestination) Then
-			  Local $translatedDestination = $aCybooks[$f] & $destination & $aCurrentLine
-			EndIf
+		 If StringInStr($aLines[$i] , '= ') Then
+			$destination = StringTrimLeft($aLines[$i], 2)	; remove the '= '
+		 ElseIf StringInStr($aLines[$i], '+ ') Then
+			$translatedDestination = $aCybooks[$f] & $destination & $aCurrentLine
 			DirCopy($aCurrentLine, $translatedDestination)
 			FileCopy($aCurrentLine, $translatedDestination, 8)
 			$adds = $adds + 1
-		 ElseIf StringInStr($aLines[$i], '-') Then
-			If Not StringInStr($aCurrentLine, $destination) Then
-			  Local $translatedSource = $aCybooks[$f] & $destination & $aCurrentLine
+		 ElseIf StringInStr($aLines[$i], '- ') Then
+			If Not StringInStr($aCurrentLine, $aCybooks[$f] & $destination & $aCurrentLine) Then ; rebuild path for "- text.txt" feature
+			   $translatedSource = $aCybooks[$f] & $destination & '\' & $aCurrentLine
 			EndIf
 			DirRemove($translatedSource, 1)
 			FileDelete($translatedSource)
 			$rems = $rems + 1
-		 ElseIf StringInStr($aLines[$i], '*') Then
-			If Not StringInStr($aCurrentLine, $destination) Then
-			  Local $translatedSource = $aCybooks[$f] & $destination
-			EndIf
-			DirCopy($destination, $aCurrentLine)
+		 ElseIf StringInStr($aLines[$i], '* ') Then
+			$translatedSource = $aCybooks[$f] & $aCurrentLine
+			DirCopy($translatedSource, $destination)
+			FileCopy($translatedSource, $destination, 8)
 			$colls = $colls + 1
 		 EndIf
 	  Next
@@ -332,7 +328,7 @@ Func UploadSingleFile($fileSource, $aCyBooks, $splittedDestination)
 	  EndIf
    Next
 
-  info('Transfert fichier accompli (' & $succes & '/' & UBound($aCybooks) - 1 &').')
+  info('Transfert fichier accompli (' & $succes & '/' & UBound($aCybooks) &').')
 EndFunc
 
 Func UploadMultiplesFiles($fileSource, $aCyBooks, $splittedDestination)
@@ -353,7 +349,7 @@ Func UploadMultiplesFiles($fileSource, $aCyBooks, $splittedDestination)
 	  Next
    Next
 
-   info('Transferts fichiers terminés (' & $succes & '/' & UBound($items) - 1 &').')
+   info('Transferts fichiers terminés (' & $succes & '/' & UBound($items) &').')
 EndFunc
 
 Func UploadFolder($aCybooks)
@@ -385,7 +381,7 @@ Func UploadFolder($aCybooks)
 	  EndIf
    Next
 
-   info('Transfert de dossier terminé (' & $succes & '/' & UBound($aCybooks) - 1 &').')
+   info('Transfert de dossier terminé (' & $succes & '/' & UBound($aCybooks) &').')
 EndFunc
 
 Func RemoveFiles($aCybooks)
@@ -422,7 +418,7 @@ Func RemoveSingleFile($fileSource, $aCybooks, $splittedSource, $trimedSource)
 		EndIf
    Next
 
-   info('Suppression de fichier terminée (' & $succes & '/' & UBound($aCybooks) - 1 & ').')
+   info('Suppression de fichier terminée (' & $succes & '/' & UBound($aCybooks) & ').')
 EndFunc
 
 Func RemoveMultiplesFiles($fileSource, $aCybooks, $splittedSource)
@@ -446,7 +442,7 @@ Func RemoveMultiplesFiles($fileSource, $aCybooks, $splittedSource)
 	  Next
    Next
 
-   info('Suppressions terminées (' & $succes & '/' & UBound($items) - 1 &').')
+   info('Suppressions terminées (' & $succes & '/' & UBound($items) &').')
    Return
 EndFunc
 
@@ -476,7 +472,7 @@ Func RemoveFolder($aCybooks)
 		 info('Oops : ' & StringUpper($aCybooks[$i]) & ' Suppression => Dossier ' & $splittedFolder & ' introuvable')
 	  EndIf
    Next
-   info('Suppressions dossiers terminées (' & $succes & '/' & UBound($aCybooks) - 1 & ').')
+   info('Suppressions dossiers terminées (' & $succes & '/' & UBound($aCybooks) & ').')
 EndFunc
 
 Func CopieDevices($aCybooks)
@@ -487,7 +483,6 @@ Func CopieDevices($aCybooks)
    EndIf
 
    Local $splittedDevicesSource = StringTrimLeft($deviceSource, 2)
-   UpdateTempFile('= ' & $splittedDevicesSource)
 
    Local $destinationFolder = FileSelectFolder("Copie : Destination sur le PC", @HomeDrive)
    If $destinationFolder = '' Then
@@ -495,12 +490,14 @@ Func CopieDevices($aCybooks)
 	  Return
    EndIf
 
+   UpdateTempFile('= ' & $destinationFolder)
+
    Local $succes = 0
 
    For $i=0 To UBound($aCybooks) - 1
 	  Local $file = FileExists($aCybooks[$i] & $splittedDevicesSource)
 	  If $file = 1 Then
-		 UpdateTempFile('* ' & $destinationFolder)
+		 UpdateTempFile('* ' & $splittedDevicesSource)
 		 $dirCopy = DirCopy($aCybooks[$i] & $splittedDevicesSource, $destinationFolder, 1)
 		 If $dirCopy = 1 Then
 			info('Succes : ' & StringUpper($aCybooks[$i]) & ' Collecte ' & $splittedDevicesSource & ' => Succes !')
@@ -512,7 +509,7 @@ Func CopieDevices($aCybooks)
 		 info('Oops : ' & StringUpper($aCybooks[$i]) & ' Copie => Dossier(s) introuvable(s)')
 	  EndIf
    Next
-   info('Collecte terminée (' & $succes & '/' & UBound($aCybooks) - 1 & ').')
+   info('Collecte terminée (' & $succes & '/' & UBound($aCybooks) & ').')
 EndFunc
 
 Func CheckForUpdates()
