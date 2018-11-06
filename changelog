@@ -1,3 +1,9 @@
+06/11/2018 10:09 :
+ - Modification de l'ecriture de collecte pour l'api
+ - Fix bug mineur compteurs
+ - Implémentation vérrouillage de la liste des appareils avant la fin de la collecte complete
+ - Fix bug mineur API suppression
+ 
 05/11/2018 10:57 :
 - Implémentation de détection de mises à jours
 - Implémentation d'un fonctionnalitée de collecte d'appareils vers PC
