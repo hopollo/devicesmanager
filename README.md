@@ -8,6 +8,7 @@ Gestionnaire de fichiers d'une série d'outils amovibles.
 ## Fonctionnalités :
  - **Ajouts** : ajouter les fichiers/dossiers au lot d'appareils.
  - **Suppressions** : supprimer les fichiers/dossiers du lot d'appareils.
+ - **Collectes** : récuperer les fichiers/dossiers du lot d'appareils.
  - **Repeat ou Script** : effectuer une deuxième passe similaire ou pré-définissez les mouvements de fichiers/dossiers à appliquer au lot d'appareils.
 
 ## Documentation : 
